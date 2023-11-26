@@ -2,8 +2,9 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { Home } from "./Screens/Home";
+import { Search } from "./Screens/Search";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -13,8 +14,7 @@ function MyTabs() {
       initialRouteName="Feed"
       activeColor="#e91e63"
       labelStyle={{ fontSize: 12 }}
-      style={{ backgroundColor: "tomato" }}
-    >
+      style={{ backgroundColor: "tomato" }}>
       <Tab.Screen
         name="Feed"
         component={Home}
@@ -30,12 +30,12 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={Home}
+        name="Search"
+        component={Search}
         options={{
-          tabBarLabel: "Updates",
+          tabBarLabel: "Search",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
+            <Ionicons name="search" color={color} size={26} />
           ),
         }}
       />
