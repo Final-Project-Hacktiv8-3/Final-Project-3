@@ -5,6 +5,8 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { Home } from "./Screens/Home";
 import { Search } from "./Screens/Search";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -55,8 +57,10 @@ function MyTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyTabs />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
+    </Provider>
   );
 }
