@@ -1,31 +1,21 @@
 import { useEffect, useState } from "react";
 import { StatusBar, Text, View } from "react-native";
 import { axiosInstance } from "../../services/axios";
+import { useDispatch } from "react-redux";
+import { Button } from "react-native-paper";
+import { getLocation } from "../../redux/hotel/hotelAction";
 
 export const Search = () => {
-  const [data, setData] = useState(null);
-  const getData = async () => {
-    try {
-      const response = await axiosInstance.get("/locations/auto-complete", {
-        params: {
-          text: "london",
-          languagecode: "en-us",
-        },
-      });
-      setData(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
+  const dispatch = useDispatch();
 
-  console.log(data);
+  const handlePress = () => {
+    dispatch(getLocation({ cityName: "Bandung" }));
+  };
 
   return (
     <View className="flex-1 items-center justify-center bg-purple-900">
       <Text className="text-3xl font-bold text-slate-100 ">Search</Text>
+      <Button onPress={handlePress}>Press</Button>
       <StatusBar style="auto" />
     </View>
   );
