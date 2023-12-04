@@ -8,8 +8,26 @@ import { Search } from "./Screens/Search";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { Profile } from "./Screens/Profile";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Login } from "./Screens/Login";
 
 const Tab = createMaterialBottomTabNavigator();
+const ProfileStack = createNativeStackNavigator();
+
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <ProfileStack.Screen name="Login" component={Login} />
+    </ProfileStack.Navigator>
+  );
+}
 
 function MyTabs() {
   return (
@@ -44,7 +62,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileStackScreen}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
