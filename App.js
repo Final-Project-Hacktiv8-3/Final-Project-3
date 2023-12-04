@@ -7,6 +7,7 @@ import { Home } from "./Screens/Home";
 import { Search } from "./Screens/Search";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { Profile } from "./Screens/Profile";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -43,7 +44,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={Home}
+        component={Profile}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
