@@ -10,6 +10,7 @@ import { store } from "./redux/store";
 import { Profile } from "./Screens/Profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Login } from "./Screens/Profile/Login";
+import { Account } from "./Screens/Profile/Account";
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ function ProfileStackScreen() {
         }}
       />
       <ProfileStack.Screen name="Login" component={Login} />
+      <ProfileStack.Screen name="Account" component={Account} />
     </ProfileStack.Navigator>
   );
 }

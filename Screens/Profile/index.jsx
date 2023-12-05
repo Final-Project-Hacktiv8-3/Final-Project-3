@@ -67,8 +67,7 @@ export const Profile = ({ navigation }) => {
           <Text style={{ fontSize: 28, fontWeight: "700" }}>{fullName}</Text>
         </View>
         <View style={{ flex: 1, gap: 10 }}>
-          <TouchableOpacity>
-            {/* TODO: Navigate to edit profile */}
+          <TouchableOpacity onPress={() => navigation.navigate("Account")}>
             <Card.Title
               title="Account"
               titleVariant="headlineSmall"
