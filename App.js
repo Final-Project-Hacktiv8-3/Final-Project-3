@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { Profile } from "./Screens/Profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login } from "./Screens/Login";
+import { Login } from "./Screens/Profile/Login";
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
