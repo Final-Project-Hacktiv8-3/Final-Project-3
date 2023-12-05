@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { Image, SafeAreaView, Text, View } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/auth/authSlice";
@@ -41,6 +41,10 @@ export const Login = ({ navigation }) => {
           justifyContent: "center",
           gap: 20,
         }}>
+        <Image
+          source={require("../../assets/logo.png")}
+          style={{ width: 140, height: "10%", alignSelf: "center" }}
+        />
         <TextInput
           label="Username"
           value={username}

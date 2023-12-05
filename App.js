@@ -61,7 +61,7 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileStackScreen"
         component={ProfileStackScreen}
         options={{
           tabBarLabel: "Profile",
