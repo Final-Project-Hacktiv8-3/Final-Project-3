@@ -1,13 +1,11 @@
-import { SafeAreaView, Text, View } from "react-native";
-import { Button } from "react-native-paper";
+import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Avatar, Button, Card, IconButton } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/auth/authSlice";
 
 export const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { email, username, fullName, isAuth } = useSelector(
-    (state) => state.auth
-  );
+  const { fullName, isAuth } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -51,18 +49,52 @@ export const Profile = ({ navigation }) => {
         }}>
         <View
           style={{
-            height: 80,
             display: "flex",
+            justifyContent: "start",
             alignItems: "center",
-            justifyContent: "center",
+            marginTop: 80,
+            marginBottom: 60,
           }}>
-          <Text style={{ fontSize: 28, fontWeight: "700" }}>
-            Welcome {fullName}!
-          </Text>
+          <Avatar.Image
+            source={{
+              uri: "https://api.dicebear.com/7.x/adventurer-neutral/png?eyebrows=variant09",
+            }}
+            size={140}
+            style={{
+              marginBottom: 20,
+            }}
+          />
+          <Text style={{ fontSize: 28, fontWeight: "700" }}>{fullName}</Text>
+        </View>
+        <View style={{ flex: 1, gap: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Account")}>
+            <Card.Title
+              title="Account"
+              titleVariant="headlineSmall"
+              titleStyle={{ fontWeight: "700", color: "#7C6A46" }}
+              subtitle="Manage your account"
+              subtitleVariant="bodySmall"
+              left={(props) => (
+                <IconButton
+                  {...props}
+                  icon="account"
+                  style={{ width: "100%" }}
+                  iconColor="#7C6A46"
+                  size={45}
+                />
+              )}
+              right={(props) => <IconButton {...props} icon="chevron-right" />}
+              style={{
+                backgroundColor: "#F5F5F5",
+                borderRadius: 12,
+              }}
+            />
+          </TouchableOpacity>
         </View>
         <Button
+          style={{ marginBottom: 40 }}
           mode="contained"
-          buttonColor="#7C6A46"
+          buttonColor="#FF0000"
           icon="logout"
           onPress={handleLogout}>
           Logout
