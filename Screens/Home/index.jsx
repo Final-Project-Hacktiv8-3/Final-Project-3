@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { StatusBar, Text, View,Image,TouchableOpacity,FlatList} from "react-native";
+import { StatusBar, Text, View,Image,TouchableOpacity,FlatList, ScrollView} from "react-native";
 import { useSelector } from "react-redux";
 import view from '../../assets/view.jpg'
 
@@ -7,7 +7,7 @@ import { StyleSheet } from "react-native";
 
 export const Home = () => {
   const getListHotel = useSelector((state) => state.hotel.location);
-  const [location, setLocation] = useState(
+  const [locationTop, setLocation] = useState(
     [
       {
         kotaId:-2679652,
@@ -32,9 +32,37 @@ export const Home = () => {
     ]
     )
 
+    const [locationPop, setLocationPop] = useState(
+      [
+        {
+          kotaId:-2701757,
+          name:"Bali",
+          photo:require("../../assets/bali.jpg")
+        },
+        {
+          kotaId:-2685677,
+          name:"Lombok",
+          photo:require("../../assets/lombok.jpg")
+        },
+        {
+          kotaId:7435,
+          name:"Raja Ampat",
+          photo:require("../../assets/rajampat.jpg")
+        },
+        {
+          kotaId:15519,
+          name:"Wakatobi",
+          photo:require("../../assets/wakatobi.jpg")
+        },
+      ]
+      )
+
   
 
   return (
+    <ScrollView>
+
+
     <View >
       <View style={styles.imgContainer} >
         <Image  source={require("../../assets/view.jpg")} style={styles.image}/>
@@ -52,7 +80,28 @@ export const Home = () => {
       <View>
         <Text style={styles.title}  >TOP DESTINATIONS</Text>
         <FlatList
-        data={location}
+        data={locationTop}
+        renderItem={({item})=>(
+          <TouchableOpacity style={styles.cardContainer}  >
+
+            <Image source={item.photo} style={styles.cardImage}/>
+            <View style={styles.textInCardContainer}>
+
+            <Text style={styles.textInCard}   >{item.name}</Text>
+            </View>
+          </TouchableOpacity>
+
+
+        )}
+        keyExtractor={items => items}
+        horizontal
+        
+        />
+      </View>
+      <View>
+        <Text style={styles.title}  >POPULAR DESTINATIONS</Text>
+        <FlatList
+        data={locationPop}
         renderItem={({item})=>(
           <TouchableOpacity style={styles.cardContainer}  >
 
@@ -71,6 +120,7 @@ export const Home = () => {
         />
       </View>
     </View>
+    </ScrollView>
   );
 };
 
