@@ -10,21 +10,25 @@ export const Home = () => {
   const [locationTop, setLocation] = useState(
     [
       {
+        id:1,
         kotaId:-2679652,
         name:"Jakarta",
         photo:require("../../assets/jakarta.jpg")
       },
       {
+        id:2,
         kotaId:-2671578,
         name:"Bandung",
         photo:require("../../assets/bandung.jpg")
       },
       {
+        id:3,
         kotaId:-2687472,
         name:"Medan",
         photo:require("../../assets/medan.jpg")
       },
       {
+        id:4,
         kotaId:-2698521,
         name:"Surabaya",
         photo:require("../../assets/surabaya.jpg")
@@ -35,21 +39,25 @@ export const Home = () => {
     const [locationPop, setLocationPop] = useState(
       [
         {
+          id:1,
           kotaId:-2701757,
           name:"Bali",
           photo:require("../../assets/bali.jpg")
         },
         {
+          id:2,
           kotaId:-2685677,
           name:"Lombok",
           photo:require("../../assets/lombok.jpg")
         },
         {
+          id:3,
           kotaId:7435,
           name:"Raja Ampat",
           photo:require("../../assets/rajampat.jpg")
         },
         {
+          id:4,
           kotaId:15519,
           name:"Wakatobi",
           photo:require("../../assets/wakatobi.jpg")
@@ -93,7 +101,7 @@ export const Home = () => {
 
 
         )}
-        keyExtractor={items => items}
+        keyExtractor={items => items.id}
         horizontal
         
         />
@@ -114,7 +122,7 @@ export const Home = () => {
 
 
         )}
-        keyExtractor={items => items}
+        keyExtractor={items => items.id }
         horizontal
         
         />
@@ -128,14 +136,15 @@ export const Home = () => {
 const styles = StyleSheet.create({
   imgContainer:{
     position:"relative",
-    display:"inline-block"
+    display:"inline-block",
+    marginTop:50
   },
   image:{
     width:350,
     height:150,
     marginLeft:"auto",
     marginRight:"auto",
-    borderRadius:"5px",
+    borderRadius:5,
   },
   imageText:{
     position: "absolute",
@@ -149,10 +158,10 @@ const styles = StyleSheet.create({
     backgroundColor:"#FFFFFF",
     width:90,
     height:30,
-    borderRadius:"20px",
+    borderRadius:20,
     marginLeft:"auto",
     marginRight:"auto",
-    marginTop:"10px"
+    marginTop:10
     
   },
   textInButton:{
@@ -166,27 +175,27 @@ const styles = StyleSheet.create({
   textInImageHead:{
     color:"#FFFFFF",
     fontWeight:"bold",
-    fontSize:"18px",
+    fontSize:18,
     marginLeft:"auto",
     marginRight:"auto",
   },
   textInImageChild:{
     color:"#FFFFFF",
     fontWeight:"bold",
-    fontSize:"18px",
+    fontSize:18,
   },
   title:{
     color:"#8C7D5D",
-    fontSize:"20px",
+    fontSize:20,
     fontWeight:"600",
     marginVertical:"5px",
-    marginLeft:"15px",
+    marginLeft:20,
   },
   cardImage:{
-    height:"300px",
-    width:"140px",
-    objectFit:"contain",
-    borderRadius:"5px",
+    height:300,
+    width:140,
+    // objectFit:"contain",
+    borderRadius:5,
   },
   textInCardContainer:{
     position: "absolute",
