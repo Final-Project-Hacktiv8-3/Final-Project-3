@@ -5,7 +5,9 @@ import view from '../../assets/view.jpg'
 
 import { StyleSheet } from "react-native";
 
-export const Home = () => {
+
+
+export const Home = ({ navigation }) => {
   const getListHotel = useSelector((state) => state.hotel.location);
   const [locationTop, setLocation] = useState(
     [
@@ -65,6 +67,18 @@ export const Home = () => {
       ]
       )
 
+
+      const handleNavigate = (kotaId,kota)=>{
+        
+        console.log(kota)
+        navigation.navigate('Details',{
+          kota: kota,
+          kotaId: kotaId,
+        });
+        
+      }
+
+
   
 
   return (
@@ -90,7 +104,7 @@ export const Home = () => {
         <FlatList
         data={locationTop}
         renderItem={({item})=>(
-          <TouchableOpacity style={styles.cardContainer}  >
+          <TouchableOpacity style={styles.cardContainer} onPress={()=>handleNavigate(item?.kotaId,item?.name)} >
 
             <Image source={item.photo} style={styles.cardImage}/>
             <View style={styles.textInCardContainer}>
@@ -111,7 +125,7 @@ export const Home = () => {
         <FlatList
         data={locationPop}
         renderItem={({item})=>(
-          <TouchableOpacity style={styles.cardContainer}  >
+          <TouchableOpacity style={styles.cardContainer} onPress={()=>handleNavigate(item?.kotaId,item?.name)}  >
 
             <Image source={item.photo} style={styles.cardImage}/>
             <View style={styles.textInCardContainer}>
@@ -188,13 +202,13 @@ const styles = StyleSheet.create({
     color:"#8C7D5D",
     fontSize:20,
     fontWeight:"600",
-    marginVertical:"5px",
+    marginVertical:5,
     marginLeft:20,
+    
   },
   cardImage:{
     height:300,
     width:140,
-    // objectFit:"contain",
     borderRadius:5,
   },
   textInCardContainer:{
@@ -204,7 +218,8 @@ const styles = StyleSheet.create({
 
   },
   textInCard:{
-    color:"#FFFFFF"
+    color:"#FFFFFF",
+    fontWeight:"bold",
   },
   cardContainer:{
     marginLeft:20,
