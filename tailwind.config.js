@@ -6,7 +6,14 @@ module.exports = {
     "./Components/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // Add your custom colors here
+        primary: "#3490dc", // Example color
+        secondary: "#ffed4a", // Another example color
+        "semi-transparent": "rgba(0, 0, 0, 0.5)",
+      },
+    },
   },
   plugins: [],
 };
