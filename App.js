@@ -11,6 +11,7 @@ import { Profile } from "./Screens/Profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Login } from "./Screens/Profile/Login";
 import { Account } from "./Screens/Profile/Account";
+import { Favorites } from "./Screens/Favorites";
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
@@ -59,6 +60,16 @@ function MyTabs() {
           tabBarLabel: "Search",
           tabBarIcon: ({ color }) => (
             <Ionicons name="search" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          tabBarLabel: "Favorites",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="heart" color={color} size={26} />
           ),
         }}
       />
