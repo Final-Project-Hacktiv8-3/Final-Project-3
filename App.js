@@ -9,30 +9,43 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { Profile } from "./Screens/Profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from '@react-navigation/stack';
 import { Login } from "./Screens/Profile/Login";
 import { Account } from "./Screens/Profile/Account";
+import { DetailPlace } from "./Screens/Details";
+import 'react-native-gesture-handler';
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Profile"
         component={Profile}
         options={{
           headerShown: false,
         }}
       />
-      <ProfileStack.Screen name="Login" component={Login} />
-      <ProfileStack.Screen name="Account" component={Account} />
-    </ProfileStack.Navigator>
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Account" component={Account} />
+    </Stack.Navigator>
   );
 }
 
+// function DetailsStackScreen() {
+//   return (
+//     <Stack.Navigator >
+//       <Stack.Screen name="Detail Place" component={DetailPlace}   />
+//     </Stack.Navigator>
+//   );
+// }
+
 function MyTabs() {
   return (
+    <>
     <Tab.Navigator
       initialRouteName="Feed"
       activeColor="#e91e63"
@@ -47,11 +60,9 @@ function MyTabs() {
             <MaterialCommunityIcons
               name="google-home"
               color={color}
-              size={26}
-            />
+              size={26} />
           ),
-        }}
-      />
+        }} />
       <Tab.Screen
         name="Search"
         component={Search}
@@ -60,8 +71,7 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="search" color={color} size={26} />
           ),
-        }}
-      />
+        }} />
       <Tab.Screen
         name="ProfileStackScreen"
         component={ProfileStackScreen}
@@ -69,19 +79,38 @@ function MyTabs() {
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      />
+
+          ),      
+        }} />
+
+
+
     </Tab.Navigator>
+   
+    </>
+    
   );
 }
+
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <MyTabs />
+      <Stack.Navigator>
+        <Stack.Screen
+        name="Home"
+        component={MyTabs}
+        options={{headerShown:false}}
+        />
+       {/* <Stack.Navigator > */}
+        <Stack.Screen name="Details" component={DetailPlace}   />
+      {/* </Stack.Navigator> */}
+      </Stack.Navigator>
       </NavigationContainer>
+     
+
     </Provider>
+    
   );
 }
