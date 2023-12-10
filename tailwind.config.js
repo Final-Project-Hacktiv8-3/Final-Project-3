@@ -8,9 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Add your custom colors here
-        primary: "#3490dc", // Example color
-        secondary: "#ffed4a", // Another example color
+        primary: "#7C6A46",
         "semi-transparent": "rgba(0, 0, 0, 0.5)",
       },
     },

@@ -88,7 +88,7 @@ export const Search = ({ route }) => {
   // }, [searching]);
 
   const handlePress = () => {
-    dispatch(getLocation({ cityName: search }));
+    console.log(dispatch(getLocation({ cityName: "Jakarta" })));
   };
 
   return (
@@ -102,6 +102,7 @@ export const Search = ({ route }) => {
         onChangeText={onChangeSearch}
         onSubmitEditing={onSubmitSearch} // This function will be called on "Enter"
       />
+      {/* <Text onPress={handlePress}>Cari</Text> */}
       <ScrollView>
         <View className="self-center   ">
           {locationTop.map((location) => (

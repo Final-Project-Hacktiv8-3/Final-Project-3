@@ -14,8 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { useSearch } from "../../services/context";
-import { Slider } from "../../Components/organism/Slider";
 import { getTodayDate } from "../../utils/Date";
+import { Slider } from "../../Components/organism/Slider";
 export const Home = () => {
   const navigation = useNavigation();
 
@@ -94,7 +94,10 @@ export const Home = () => {
           </View>
         </View>
         <View>
-          <Text className="px-3 pt-4 text-lg font-semibold text-primary ">
+          <Text
+            className="px-3 pt-4 text-lg font-semibold text-primary "
+            onPress={() => navigation.navigate("Details")}
+          >
             TOP DESTINATIONS
           </Text>
           {/* <FlatList

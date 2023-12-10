@@ -10,13 +10,16 @@ import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import { Profile } from "./Screens/Profile";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Login } from "./Screens/Profile/Login";
 import { Account } from "./Screens/Profile/Account";
-// import { WishList } from "./Screens/WishList";
+import { DetailPlace } from "./Screens/Details";
+import "react-native-gesture-handler";
 import { SearchProvider } from "./services/context";
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 function ProfileStackScreen() {
   return (
@@ -28,67 +31,65 @@ function ProfileStackScreen() {
           headerShown: false,
         }}
       />
-      <ProfileStack.Screen name="Login" component={Login} />
-      <ProfileStack.Screen name="Account" component={Account} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Account" component={Account} />
     </ProfileStack.Navigator>
   );
 }
 
+// function DetailsStackScreen() {
+//   return (
+//     <Stack.Navigator >
+//       <Stack.Screen name="Detail Place" component={DetailPlace}   />
+//     </Stack.Navigator>
+//   );
+// }
+
 function MyTabs() {
   const { isAuth } = useSelector((state) => state.auth);
   return (
-    <Tab.Navigator
-      initialRouteName="Feed"
-      barStyle={{
-        backgroundColor: "#fff",
-        borderTopColor: "#8C7D5D",
-        borderTopWidth: 1,
-      }}
-      activeColor="#8C7D5D"
-    >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={({ route, navigation }) => ({
-          tabBarLabel: navigation.getState().index === 0 ? route.name : null,
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-        })}
-      />
-      <Tab.Screen
-        name="Search"
-        component={Search}
-        options={({ route, navigation }) => ({
-          tabBarLabel: navigation.getState().index === 1 ? route.name : null,
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="search" color={color} size={26} />
-          ),
-        })}
-      />
-      {/* {isAuth && (
+    <>
+      <Tab.Navigator
+        initialRouteName="Feed"
+        barStyle={{
+          backgroundColor: "#fff",
+          borderTopColor: "#8C7D5D",
+          borderTopWidth: 1,
+        }}
+        activeColor="#8C7D5D"
+      >
         <Tab.Screen
-          name="Wish List"
-          component={WishList}
+          name="Home"
+          component={Home}
           options={({ route, navigation }) => ({
-            tabBarLabel: navigation.getState().index === 2 ? route.name : null,
+            tabBarLabel: navigation.getState().index === 0 ? route.name : null,
             tabBarIcon: ({ color }) => (
-              <AntDesign name="heart" color={color} size={26} />
+              <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
           })}
         />
-      )} */}
-      <Tab.Screen
-        name="Profile"
-        component={ProfileStackScreen}
-        options={({ route, navigation }) => ({
-          tabBarLabel: navigation.getState().index === 3 ? route.name : null,
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        })}
-      />
-    </Tab.Navigator>
+        <Tab.Screen
+          name="Search"
+          component={Search}
+          options={({ route, navigation }) => ({
+            tabBarLabel: navigation.getState().index === 1 ? route.name : null,
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="search" color={color} size={26} />
+            ),
+          })}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileStackScreen}
+          options={({ route, navigation }) => ({
+            tabBarLabel: navigation.getState().index === 2 ? route.name : null,
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="account" color={color} size={26} />
+            ),
+          })}
+        />
+      </Tab.Navigator>
+    </>
   );
 }
 
@@ -97,7 +98,16 @@ export default function App() {
     <Provider store={store}>
       <SearchProvider>
         <NavigationContainer>
-          <MyTabs />
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Homes"
+              component={MyTabs}
+              options={{ headerShown: false }}
+            />
+            {/* <Stack.Navigator > */}
+            <Stack.Screen name="Details" component={DetailPlace} />
+            {/* </Stack.Navigator> */}
+          </Stack.Navigator>
         </NavigationContainer>
       </SearchProvider>
     </Provider>
