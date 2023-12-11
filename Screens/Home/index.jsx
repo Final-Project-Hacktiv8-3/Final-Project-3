@@ -9,13 +9,13 @@ import {
   ScrollView,
 } from "react-native";
 import { useSelector } from "react-redux";
-import view from "../../assets/view.jpg";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { useSearch } from "../../services/context";
 import { getTodayDate } from "../../utils/Date";
 import { Slider } from "../../Components/organism/Slider";
+import { Header } from "../../Components/molecules/header";
 export const Home = () => {
   const navigation = useNavigation();
 
@@ -71,10 +71,11 @@ export const Home = () => {
   ];
   const onChangeSearch = (query) => setSearch(query);
   return (
-    <ScrollView className="flex-1 bg-white gap-y-9">
-      <View className="flex-1 w-screen max-h-screen min-h-[96vh] justify-center   ">
+    <View className="flex-1 bg-white ">
+      <View className="  justify-center   gap-y-3 ">
+        <Header />
         <Searchbar
-          className="bg-slate-200  w-[90%] self-center mt-2 mb-4 "
+          className="bg-slate-200   w-[90%] self-center  "
           placeholder="Cari Kota"
           value={search}
           onChangeText={onChangeSearch}
@@ -95,28 +96,15 @@ export const Home = () => {
         </View>
         <View>
           <Text
-            className="px-3 pt-4 text-lg font-semibold text-primary "
+            className="px-3 text-lg font-semibold text-primary "
             onPress={() => navigation.navigate("Details")}
           >
             TOP DESTINATIONS
           </Text>
-          {/* <FlatList
-            data={locationTop}
-            renderItem={({ item }) => (
-              <TouchableOpacity style={styles.cardContainer}>
-                <Image source={item.photo} style={styles.cardImage} />
-                <View style={styles.textInCardContainer}>
-                  <Text style={styles.textInCard}>{item.name}</Text>
-                </View>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(items) => items}
-            horizontal
-          /> */}
           <Slider list={locationPop} />
         </View>
         <View>
-          <Text className="px-3 pt-4 text-lg  font-semibold text-primary ">
+          <Text className="px-3 text-lg  font-semibold text-primary ">
             POPULAR DESTINATIONS
           </Text>
           {/* <FlatList
@@ -135,12 +123,17 @@ export const Home = () => {
           <Slider list={locationTop} />
         </View>
       </View>
-      <StatusBar
+      {/* <StatusBar
         translucent
         backgroundColor="transparent"
         barStyle="dark-content"
+      /> */}
+      <StatusBar
+        style="auto"
+        backgroundColor="transparent"
+        barStyle="dark-content"
       />
-    </ScrollView>
+    </View>
   );
 };
 
