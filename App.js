@@ -16,6 +16,7 @@ import { Account } from "./Screens/Profile/Account";
 import { DetailPlace } from "./Screens/Details";
 import "react-native-gesture-handler";
 import { SearchProvider } from "./services/context";
+import { Favorites } from "./Screens/Favorites";
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
@@ -34,6 +35,20 @@ function ProfileStackScreen() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Account" component={Account} />
     </ProfileStack.Navigator>
+  );
+}
+
+function FavoritesStackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          headerTitleAlign: "center",
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -56,8 +71,7 @@ function MyTabs() {
           borderTopColor: "#8C7D5D",
           borderTopWidth: 1,
         }}
-        activeColor="#8C7D5D"
-      >
+        activeColor="#8C7D5D">
         <Tab.Screen
           name="Home"
           component={Home}
@@ -79,10 +93,20 @@ function MyTabs() {
           })}
         />
         <Tab.Screen
+          name="Favorites"
+          component={FavoritesStackScreen}
+          options={({ route, navigation }) => ({
+            tabBarLabel: navigation.getState().index === 2 ? route.name : null,
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="heart" color={color} size={26} />
+            ),
+          })}
+        />
+        <Tab.Screen
           name="Profile"
           component={ProfileStackScreen}
           options={({ route, navigation }) => ({
-            tabBarLabel: navigation.getState().index === 2 ? route.name : null,
+            tabBarLabel: navigation.getState().index === 3 ? route.name : null,
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="account" color={color} size={26} />
             ),

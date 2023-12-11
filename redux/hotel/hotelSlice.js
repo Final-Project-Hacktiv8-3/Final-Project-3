@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getHotelByLocation, getLocation } from "./hotelAction";
 
 const initialState = {
-  wishlists: [],
+  favorites: [],
   listHotels: [],
   isLoading: false,
   error: null,
@@ -12,7 +12,23 @@ const initialState = {
 const hotelSlice = createSlice({
   name: "hotel",
   initialState,
-  reducers: {},
+  reducers: {
+    addToFavorites: (state, action) => {
+      const { title } = action.payload;
+      const filterFavorites = state.favorites.find(
+        (item) => item.title === title
+      );
+
+      if (filterFavorites) {
+        state.favorites = state.favorites.filter(
+          (item) => item.title !== title
+        );
+      } else {
+        state.favorites.push(action.payload);
+      }
+    },
+  },
+
   extraReducers: (builder) => {
     builder.addCase(getLocation.pending, (state) => {
       state.isLoading = true;
@@ -40,4 +56,5 @@ const hotelSlice = createSlice({
   },
 });
 
+export const { addToFavorites } = hotelSlice.actions;
 export default hotelSlice.reducer;
