@@ -33,14 +33,16 @@ export const Login = ({ navigation }) => {
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: "transparent",
-      }}>
+      }}
+    >
       <View
         style={{
           flex: 1,
           display: "flex",
           justifyContent: "center",
           gap: 20,
-        }}>
+        }}
+      >
         <Image
           source={require("../../../assets/logo.png")}
           style={{ width: 140, height: 80, alignSelf: "center" }}
