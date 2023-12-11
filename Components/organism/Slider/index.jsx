@@ -16,7 +16,7 @@ export const Slider = ({ list }) => {
       });
 
       setCurrentIndex(nextIndex);
-    }, 2000);
+    }, 2500);
 
     return () => clearInterval(scrollTimer);
   }, [list, currentIndex]);

@@ -6,6 +6,7 @@ import { getHotelByLocation, getLocation } from "../../redux/hotel/hotelAction";
 import { useSearch } from "../../services/context";
 import { useNavigation } from "@react-navigation/native";
 import { HotelCard } from "../../Components/organism/Card";
+import { Loading } from "../../Components/molecules/loading";
 
 export const Search = ({ route }) => {
   const locationTop = [
@@ -31,43 +32,43 @@ export const Search = ({ route }) => {
     },
   ];
   const dispatch = useDispatch();
-  // const { searching } = route.params;
-  // const { search, setSearch } = useSearch(searching || "");
+  const { searching } = route.params || {};
+  const { search, setSearch } = useSearch(searching || "");
   const [hotels, setHotels] = useState([]);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [endReached, setEndReached] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  // const handlerGetHotel = async (test) => {
-  //   try {
-  //     setLoading(true);
-  //     const { payload } = await dispatch(
-  //       getLocation({
-  //         cityName: search || test,
-  //       })
-  //     );
-  //     const response = await dispatch(
-  //       getHotelByLocation({ dest_id: payload[0].dest_id, offset })
-  //     );
+  const handlerGetHotel = async (test) => {
+    try {
+      setLoading(true);
+      const { payload } = await dispatch(
+        getLocation({
+          cityName: search || test,
+        })
+      );
+      const response = await dispatch(
+        getHotelByLocation({ dest_id: payload[0].dest_id, offset })
+      );
 
-  //     setEndReached(response.payload.result.length === 0);
+      setEndReached(response.payload.result.length === 0);
 
-  //     // If offset is 0, set the new hotels, otherwise append to existing hotels
-  //     setHotels((prevHotels) =>
-  //       offset === 0
-  //         ? response.payload.result
-  //         : [...prevHotels, ...response.payload.result]
-  //     );
+      // If offset is 0, set the new hotels, otherwise append to existing hotels
+      setHotels((prevHotels) =>
+        offset === 0
+          ? response.payload.result
+          : [...prevHotels, ...response.payload.result]
+      );
 
-  //     // Clear the search value after handling the search
-  //     setSearch("");
-  //   } catch (error) {
-  //     console.error("Error fetching hotels:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+      // Clear the search value after handling the search
+      setSearch("");
+    } catch (error) {
+      console.error("Error fetching hotels:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const onChangeSearch = (query) => {
     // Set nilai search setiap kali pengguna mengetik
@@ -81,41 +82,44 @@ export const Search = ({ route }) => {
     handlerGetHotel();
   };
 
-  // useEffect(() => {
-  //   if (searching) {
-  //     handlerGetHotel(searching);
-  //   }
-  // }, [searching]);
-
-  const handlePress = () => {
-    console.log(dispatch(getLocation({ cityName: "Jakarta" })));
-  };
+  useEffect(() => {
+    if (searching) {
+      handlerGetHotel(searching);
+      setSearch(searching);
+    }
+  }, [searching]);
 
   return (
     <View className="flex-1 max-h-screen bg-white ">
-      {/* <Text>Hotel for {search}</Text> */}
       <Searchbar
-        className="bg-slate-200 w-[90%] self-center mt-12 mb-4"
+        className="bg-slate-200 w-[90%] self-center  mb-4"
         placeholder="Cari Kota"
         // Set nilai Searchbar ke nilai search
-        // value={search}
+        value={search}
         onChangeText={onChangeSearch}
         onSubmitEditing={onSubmitSearch} // This function will be called on "Enter"
       />
-      {/* <Text onPress={handlePress}>Cari</Text> */}
+
       <ScrollView>
         <View className="self-center   ">
-          {locationTop.map((location) => (
+          {hotels.slice(0, 8).map((location) => (
             <HotelCard
               key={location.id}
-              image={location.image}
-              title={location.title}
+              image={location.main_photo_url}
+              title={location.hotel_name}
+              price={location.price_breakdown.all_inclusive_price}
+              rating={location.review_score}
             />
           ))}
         </View>
+        {endReached && (
+          <View className="self-center">
+            <Text>Tidak ada hotel lagi </Text>
+          </View>
+        )}
       </ScrollView>
       {/* {loading ? (
-        <Text className="text-white">Loading...</Text>
+        <Loading />
       ) : (
         hotels.slice(0, 3).map((hotel) => (
           <Text key={hotel.id} className="text-slate-800">
