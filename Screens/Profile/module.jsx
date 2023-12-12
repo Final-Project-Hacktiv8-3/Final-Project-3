@@ -1,4 +1,10 @@
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Avatar, Button, Card, IconButton } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/auth/authSlice";
@@ -41,11 +47,10 @@ export const Profile = ({ navigation }) => {
     </SafeAreaView>
   ) : (
     <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
-      <View
+      <ScrollView
         style={{
           flex: 1,
           display: "flex",
-          justifyContent: "center",
         }}>
         <View
           style={{
@@ -91,15 +96,15 @@ export const Profile = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-        <Button
-          style={{ marginBottom: 40 }}
-          mode="contained"
-          buttonColor="#FF0000"
-          icon="logout"
-          onPress={handleLogout}>
-          Logout
-        </Button>
-      </View>
+      </ScrollView>
+      <Button
+        style={{ marginVertical: 20 }}
+        mode="contained"
+        buttonColor="#FF0000"
+        icon="logout"
+        onPress={handleLogout}>
+        Logout
+      </Button>
     </SafeAreaView>
   );
 };
