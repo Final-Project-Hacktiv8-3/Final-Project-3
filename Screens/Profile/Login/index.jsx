@@ -21,7 +21,7 @@ export const Login = ({ navigation }) => {
     setError(null);
     if (username === auth.username && password === auth.password) {
       dispatch(login());
-      navigation.navigate("Profile");
+      navigation.navigate("Profiles");
       return;
     }
     setError("Username or password is incorrect");
