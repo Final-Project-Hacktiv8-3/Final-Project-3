@@ -11,9 +11,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import "react-native-gesture-handler";
-import { Account, Favorites, Home, Login, Profile, Search } from "Screens";
+import { Account, DetailPlace, Favorites, Home, Login, Profile, Search } from "Screens";
 import { store } from "redux/store";
 import { SearchProvider } from "services";
+import { Room } from "Screens/Room";
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
@@ -88,13 +89,7 @@ function SearchStackScreen() {
     </Stack.Navigator>
   );
 }
-// function DetailsStackScreen() {
-//   return (
-//     <Stack.Navigator >
-//       <Stack.Screen name="Detail Place" component={DetailPlace}   />
-//     </Stack.Navigator>
-//   );
-// }
+
 
 function MyTabs() {
   const { isAuth } = useSelector((state) => state.auth);
@@ -110,7 +105,7 @@ function MyTabs() {
         activeColor="#8C7D5D"
       >
         <Tab.Screen
-          name="Home"
+          name="HomeTab"
           component={HomeStackScreen}
           options={({ route, navigation }) => ({
             tabBarLabel: navigation.getState().index === 0 ? route.name : null,
@@ -158,8 +153,24 @@ export default function App() {
   return (
     <Provider store={store}>
       <SearchProvider>
-        <NavigationContainer>
-          <MyTabs />
+      <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+        name="Home"
+        component={MyTabs}
+        options={{headerShown:false}}
+        />
+       
+        <Stack.Screen name="Details" component={DetailPlace}   />
+        <Stack.Screen
+        name="Room" 
+        component={Room}
+        options={{headerShown:false}}
+        
+        />
+       
+      
+      </Stack.Navigator>
         </NavigationContainer>
       </SearchProvider>
     </Provider>
