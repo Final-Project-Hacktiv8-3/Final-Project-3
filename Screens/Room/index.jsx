@@ -3,12 +3,14 @@ import { StyleSheet } from "react-native";
 import { useEffect,useState } from "react";
 import { axiosInstance } from "../../services/axios";
 import { useRoute } from "@react-navigation/native";
+import Svg, { Path } from 'react-native-svg';
 
 const screenWidth = Dimensions.get('window').width;
 
-export const Room = () => {
+export const Room = ({navigation}) => {
     const route = useRoute();
     const {hotel_id} = route.params;
+    const [love, setLove] = useState(false);
     console.log(hotel_id);
 
     const [datas, setDatas] = useState([])
@@ -45,26 +47,71 @@ export const Room = () => {
 
 
 
-    console.log(matchId)
+    const handleLove = () => {
+      setLove(prevLove => !prevLove); 
+
+
+
+    };
+  
+    const renderLoveIcon = () => {
+      if (love) {
+        return <TouchableOpacity style={styles.loveRound} onPress={()=>handleLove()} >
+        <Image source={require("../../assets/heart-fill.png")} style={styles.love} />
+       </TouchableOpacity>;
+      } else {
+        return  <TouchableOpacity style={styles.loveRound} onPress={()=>handleLove()} >
+        <Image source={require("../../assets/heart-empty.png")} style={styles.love} />
+       </TouchableOpacity>;
+      }
+    };
+
+   
 
 
   return (
     <>
     <ScrollView>
+      
 
 
     <View> 
+        {/* <View style={styles.icon}>
+        
+
+        <TouchableOpacity style={styles.arrowRound} onPress={() => navigation.goBack()} >
+          <Image source={require("../../assets/left-arrow.png")} style={styles.arrow} />
+        </TouchableOpacity>
+  
+        {renderLoveIcon()}
+  
+        </View> */}
        <FlatList
        data={matchId?.photos}
        renderItem={({item})=> (
+        
         <Image  source={{uri:item.url_original}} style={styles.image}/>
+        
+        
        )}
        keyExtractor={item => item.id}
        horizontal
        />
 
+        <View style={styles.icon}>
+        
+
+        <TouchableOpacity style={styles.arrowRound} onPress={() => navigation.goBack()} >
+          <Image source={require("../../assets/left-arrow.png")} style={styles.arrow} />
+        </TouchableOpacity>
+  
+        {renderLoveIcon()}
+  
+        </View>
+        
        
         <View>
+
         </View>
         <View style={styles.textInCardContainer}>
 
@@ -115,7 +162,8 @@ export const Room = () => {
 const styles = StyleSheet.create({
   image:{
       height:400,
-      width:screenWidth
+      width:screenWidth,
+      position:"relative",
   },
   title:{
       fontSize:30,
@@ -135,8 +183,9 @@ const styles = StyleSheet.create({
   imageDetail:{
       width:130,
       height:130,
-      margin:20,
+      marginVertical:20,
       borderRadius:20,
+      marginRight:20,
   },
 
   textInCardContainer:{
@@ -178,5 +227,37 @@ const styles = StyleSheet.create({
     marginBottom:"auto",
     color:"#FFFFFF"
 
+  },
+  icon:{
+    flex:1,
+    flexDirection:"row",
+    position:"relative",
+    
+    
+  },
+  arrow:{
+    width:30,
+    height:30,
+   
+  },
+  love:{
+    width:30,
+    height:30,
+    
+  },
+
+  arrowRound:{
+    
+    backgroundColor:'#FFFFFF',
+    borderRadius:50,
+    // position: 'absolute',
+  },
+  loveRound:{
+    marginLeft:'auto',
+    backgroundColor:'#FFFFFF',
+    borderRadius:50,
+    // position: 'absolute',
   }
+
+
 })

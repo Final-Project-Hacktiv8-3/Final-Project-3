@@ -46,11 +46,22 @@ export const DetailPlace = ({navigation}) => {
         data={datas}
         renderItem={({item})=>(
           
-      <TouchableOpacity onPress={()=>handleNavigate(item.hotel_id)} >
-        <Image source={{uri:item.main_photo_url}} style={styles.image}/>
-        <Text style={styles.word} >{item.hotel_name}</Text>
-        <Text style={styles.word} >{item.min_total_price}</Text>
-        <Text style={styles.word} >{item.review_score}</Text>
+      <TouchableOpacity style={styles.background} onPress={()=>handleNavigate(item.hotel_id)} >
+        <View style={styles.flexCol} >
+
+          <Image source={{uri:item.main_photo_url}} style={styles.image}/>
+
+        
+          <View>
+
+            <Text style={styles.hotelName}  >{item.hotel_name}</Text>
+            <Text style={styles.word} >{item.address}</Text>
+            <Text style={styles.word} >{item.min_total_price}</Text>
+            <Text style={styles.word} >{item.review_score}({item.review_score_word || 'review belum ada'})</Text>
+            <Text style={styles.word} >Rp.{item.price_breakdown.all_inclusive_price.toLocaleString('id-ID')}</Text>
+          </View>
+        </View>
+       
     </TouchableOpacity>
 
 
@@ -66,12 +77,34 @@ export const DetailPlace = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  background:{
+    marginLeft:"auto",
+    marginRight:"auto",
+    backgroundColor:"#FFFF",
+    marginBottom:10,
+    width:360,
+    
+  },
+  flexCol:{
+    flex: 1, 
+    flexDirection: 'row',
+  },
+ 
+  hotelName:{
+    fontSize: 20,
+    flexWrap:"wrap",
+    margin:10,
+    width:'70%',
+  },
 
   word:{
-    fontSize: 10,
+    fontSize: 15,
+    marginHorizontal:10,
+    width:'70%',
+    paddingBottom:5
   },
   image:{
     width: 100,
-    height: 100,
+    height: 150,
   }
 })
