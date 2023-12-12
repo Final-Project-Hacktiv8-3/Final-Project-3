@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { useSearch } from "services";
@@ -63,48 +64,53 @@ export const Home = ({ navigation }) => {
   const onChangeSearch = (query) => setSearch(query);
   return (
     <SafeAreaView className="flex-1 py-3  bg-whiten">
-      <View className={` max-h-screen  gap-y-5`}>
-        <Searchbar
-          className="bg-slate-200   w-[90%] self-center  "
-          placeholder="Cari Kota"
-          value={search}
-          onChangeText={onChangeSearch}
-          onSubmitEditing={onSubmitSearch}
-        />
-        <View className="items-center">
-          <Image
-            source={require("../../assets/view.jpg")}
-            className="w-[95%] h-[200px] rounded-md relative"
+      <ScrollView>
+
+
+        <View className={` max-h-screen  gap-y-5`}>
+          <Searchbar
+            className="bg-slate-200   w-[90%] self-center  "
+            placeholder="Cari Kota"
+            value={search}
+            onChangeText={onChangeSearch}
+            onSubmitEditing={onSubmitSearch}
           />
-          <View className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center gap-y-3 items-center">
-            <Text className="text-xl font-bold text-white ">
-              A Hotel for every
+          <View className="items-center">
+            <Image
+              source={require("../../assets/view.jpg")}
+              className="w-[95%] h-[200px] rounded-md relative"
+            />
+            <View className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center gap-y-3 items-center">
+              <Text className="text-xl font-bold text-white ">
+                A Hotel for every
+              </Text>
+              <Text className="text-xl font-bold text-white ">
+                moment rich in emotion.
+              </Text>
+              <TouchableOpacity className="bg-white p-2 rounded-full">
+                <Text className="text-primary font-bold text-md">Book now</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View>
+            <Text
+              className="px-3 text-lg font-semibold text-primary "
+              onPress={() => navigation.navigate("Details")}
+            >
+              TOP DESTINATIONS
             </Text>
-            <Text className="text-xl font-bold text-white ">
-              moment rich in emotion.
+            <Slider list={locationPop} navigation={navigation} />
+          </View>
+          <View>
+            <Text className="px-3 text-lg  font-semibold text-primary ">
+              POPULAR DESTINATIONS
             </Text>
-            <TouchableOpacity className="bg-white p-2 rounded-full">
-              <Text className="text-primary font-bold text-md">Book now</Text>
-            </TouchableOpacity>
+            <Slider list={locationTop} navigation={navigation} />
           </View>
         </View>
-        <View>
-          <Text
-            className="px-3 text-lg font-semibold text-primary "
-            onPress={() => navigation.navigate("Details")}
-          >
-            TOP DESTINATIONS
-          </Text>
-          <Slider list={locationPop} navigation={navigation} />
-        </View>
-        <View>
-          <Text className="px-3 text-lg  font-semibold text-primary ">
-            POPULAR DESTINATIONS
-          </Text>
-          <Slider list={locationTop} navigation={navigation} />
-        </View>
-      </View>
-      <StatusBar style="auto" backgroundColor={"#7C6A46"} />
+        <StatusBar style="auto" backgroundColor={"#7C6A46"} />
+      </ScrollView>
+    
     </SafeAreaView>
   );
 };
