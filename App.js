@@ -4,19 +4,16 @@ import { AntDesign } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import { Home } from "./Screens/Home";
-import { Search } from "./Screens/Search";
+
 import { Provider, useSelector } from "react-redux";
-import { store } from "./redux/store";
-import { Profile } from "./Screens/Profile";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Login } from "./Screens/Profile/Login";
-import { Account } from "./Screens/Profile/Account";
-import { DetailPlace } from "./Screens/Details";
+
 import "react-native-gesture-handler";
-import { SearchProvider } from "./services/context";
-import { Favorites } from "./Screens/Favorites";
+import { Account, Favorites, Home, Login, Profile, Search } from "Screens";
+import { store } from "redux/store";
+import { SearchProvider } from "services";
 
 const Tab = createMaterialBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
@@ -51,7 +48,48 @@ function FavoritesStackScreen() {
     </Stack.Navigator>
   );
 }
-
+function HomeStackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Homes"
+        component={Home}
+        options={{
+          title: "Paradise View",
+          headerStyle: {
+            backgroundColor: "#7C6A46",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+          headerTintColor: "#fff",
+          headerBackAccessibilityLabel: "Back",
+          headerTitleAlign: "center",
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function SearchStackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Homes"
+        component={Search}
+        options={{
+          title: "Search",
+          headerStyle: {
+            backgroundColor: "#7C6A46",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+          headerTintColor: "#fff",
+          headerBackAccessibilityLabel: "Back",
+          headerTitleAlign: "center",
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 // function DetailsStackScreen() {
 //   return (
 //     <Stack.Navigator >
@@ -71,10 +109,11 @@ function MyTabs() {
           borderTopColor: "#8C7D5D",
           borderTopWidth: 1,
         }}
-        activeColor="#8C7D5D">
+        activeColor="#8C7D5D"
+      >
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={HomeStackScreen}
           options={({ route, navigation }) => ({
             tabBarLabel: navigation.getState().index === 0 ? route.name : null,
             tabBarIcon: ({ color }) => (
@@ -84,7 +123,7 @@ function MyTabs() {
         />
         <Tab.Screen
           name="Search"
-          component={Search}
+          component={SearchStackScreen}
           options={({ route, navigation }) => ({
             tabBarLabel: navigation.getState().index === 1 ? route.name : null,
             tabBarIcon: ({ color }) => (
@@ -122,16 +161,7 @@ export default function App() {
     <Provider store={store}>
       <SearchProvider>
         <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Homes"
-              component={MyTabs}
-              options={{ headerShown: false }}
-            />
-            {/* <Stack.Navigator > */}
-            <Stack.Screen name="Details" component={DetailPlace} />
-            {/* </Stack.Navigator> */}
-          </Stack.Navigator>
+          <MyTabs />
         </NavigationContainer>
       </SearchProvider>
     </Provider>
