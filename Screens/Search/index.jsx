@@ -50,7 +50,6 @@ export const Search = ({ route }) => {
       setLoading(false);
     }
   };
-
   const onChangeSearch = (query) => {
     setSearch(query);
   };

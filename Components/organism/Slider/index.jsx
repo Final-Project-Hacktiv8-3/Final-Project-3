@@ -31,11 +31,11 @@ export const Slider = ({ list }) => {
         <TouchableOpacity
           className="mr-2"
           onPress={() =>
-            navigation.navigate("Search", { searching: item.title })
+            navigation.navigate("Searchs", { searching: item.title })
           }
         >
           <View className="p-3">
-            <View className="relative w-[300px] h-[250px] ">
+            <View className="relative w-[300px] h-[200px] ">
               <Image source={item.image} className="w-full h-full rounded-md" />
               <View className="bg-semi-transparent  absolute bottom-0 left-0 w-full p-2 rounded-b-md">
                 <Text
