@@ -6,14 +6,11 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Searchbar } from "react-native-paper";
 import { useSearch } from "services";
 import { Slider } from "Components";
 
-export const Home = () => {
-  const navigation = useNavigation();
-
+export const Home = ({ navigation }) => {
   const { search, setSearch } = useSearch();
   const onSubmitSearch = () => {
     navigation.navigate("Searchs", { searching: search });
@@ -98,13 +95,13 @@ export const Home = () => {
           >
             TOP DESTINATIONS
           </Text>
-          <Slider list={locationPop} />
+          <Slider list={locationPop} navigation={navigation} />
         </View>
         <View>
           <Text className="px-3 text-lg  font-semibold text-primary ">
             POPULAR DESTINATIONS
           </Text>
-          <Slider list={locationTop} />
+          <Slider list={locationTop} navigation={navigation} />
         </View>
       </View>
       <StatusBar style="auto" backgroundColor={"#7C6A46"} />

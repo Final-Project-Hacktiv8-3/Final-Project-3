@@ -11,7 +11,7 @@ import { Searchbar, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { getHotelByLocation, getLocation } from "redux/hotel/hotelAction";
 import { useSearch } from "services";
-import { HotelCard } from "Components";
+import { HotelCard, Loading } from "Components";
 
 export const Search = ({ route }) => {
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ export const Search = ({ route }) => {
       setSearch(searching);
     }
   }, [searching]);
-
+  console.log(searching);
   return (
     <SafeAreaView className="flex-1 py-3 bg-white ">
       <Searchbar
@@ -75,6 +75,11 @@ export const Search = ({ route }) => {
         onChangeText={onChangeSearch}
         onSubmitEditing={onSubmitSearch}
       />
+      {loading && (
+        <View className="self-center">
+          <Loading />
+        </View>
+      )}
       <ScrollView>
         <View className="self-center   ">
           {hotels.map((location) => (

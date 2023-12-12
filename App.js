@@ -62,7 +62,6 @@ function HomeStackScreen() {
             borderBottomRightRadius: 20,
           },
           headerTintColor: "#fff",
-          headerBackAccessibilityLabel: "Back",
           headerTitleAlign: "center",
         }}
       />
@@ -83,7 +82,6 @@ function SearchStackScreen() {
             borderBottomRightRadius: 20,
           },
           headerTintColor: "#fff",
-          headerBackAccessibilityLabel: "Back",
           headerTitleAlign: "center",
         }}
       />

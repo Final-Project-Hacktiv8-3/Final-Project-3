@@ -5,11 +5,11 @@ import { AntDesign } from "@expo/vector-icons";
 export const Loading = () => {
   const navigation = useNavigation();
   return (
-    <View className="p-3 ">
-      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse"></View>
-      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse"></View>
-      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse"></View>
-      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse"></View>
+    <View className="p-3  flex gap-y-4 ">
+      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse rounded-md"></View>
+      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse rounded-md"></View>
+      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse rounded-md"></View>
+      <View className="relative w-[400px] h-[250px] bg-slate-300 animate-pulse rounded-md"></View>
     </View>
   );
 };
