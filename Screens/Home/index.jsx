@@ -1,25 +1,19 @@
-import { useEffect, useState } from "react";
 import {
   StatusBar,
   Text,
   View,
   Image,
   TouchableOpacity,
-  FlatList,
-  ScrollView,
+  SafeAreaView,
 } from "react-native";
-import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { useSearch } from "../../services/context";
-import { getTodayDate } from "../../utils/Date";
-import { Slider } from "../../Components/organism/Slider";
-import { Header } from "../../Components/molecules/header";
+import { useSearch } from "services";
+import { Slider } from "Components";
+
 export const Home = () => {
   const navigation = useNavigation();
 
-  console.log(getTodayDate());
   const onSubmitSearch = () => {
     navigation.navigate("Search", { searching: search });
   };
@@ -71,9 +65,8 @@ export const Home = () => {
   ];
   const onChangeSearch = (query) => setSearch(query);
   return (
-    <View className="flex-1 bg-white ">
-      <View className="  justify-center   gap-y-3 ">
-        <Header />
+    <SafeAreaView className="flex-1 py-3  bg-white  ">
+      <View className={` h-screen  gap-y-3`}>
         <Searchbar
           className="bg-slate-200   w-[90%] self-center  "
           placeholder="Cari Kota"
@@ -86,11 +79,15 @@ export const Home = () => {
             source={require("../../assets/view.jpg")}
             className="w-[95%] h-[200px] rounded-md relative"
           />
-          <View className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center">
-            <Text style={styles.textInImageHead}>A Hotel for every</Text>
-            <Text style={styles.textInImageChild}>moment rich in emotion.</Text>
-            <TouchableOpacity style={styles.buttonInImage}>
-              <Text style={styles.textInButton}>Book now</Text>
+          <View className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center gap-y-3 items-center">
+            <Text className="text-xl font-bold text-white ">
+              A Hotel for every
+            </Text>
+            <Text className="text-xl font-bold text-white ">
+              moment rich in emotion.
+            </Text>
+            <TouchableOpacity className="bg-white p-2 rounded-full">
+              <Text className="text-primary font-bold text-md">Book now</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -107,107 +104,10 @@ export const Home = () => {
           <Text className="px-3 text-lg  font-semibold text-primary ">
             POPULAR DESTINATIONS
           </Text>
-          {/* <FlatList
-            data={locationPop}
-            renderItem={({ item }) => (
-              <TouchableOpacity style={styles.cardContainer}>
-                <Image source={item.photo} style={styles.cardImage} />
-                <View style={styles.textInCardContainer}>
-                  <Text style={styles.textInCard}>{item.name}</Text>
-                </View>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(items) => items}
-            horizontal
-          /> */}
           <Slider list={locationTop} />
         </View>
       </View>
-      {/* <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      /> */}
-      <StatusBar
-        style="auto"
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
-    </View>
+      <StatusBar style="auto" backgroundColor={"#7C6A46"} />
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  imgContainer: {
-    position: "relative",
-    display: "inline-block",
-  },
-  image: {
-    width: 350,
-    height: 150,
-    marginLeft: "auto",
-    marginRight: "auto",
-    borderRadius: 5,
-  },
-  imageText: {
-    position: "absolute",
-    top: 20,
-    left: 90,
-
-    padding: 10 /* Atur padding teks */,
-    borderRadius: 5 /* Bulatkan sudut teks jika diinginkan */,
-  },
-  buttonInImage: {
-    backgroundColor: "#FFFFFF",
-    width: 90,
-    height: 30,
-    borderRadius: 20,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: "10px",
-  },
-  textInButton: {
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: "auto",
-    marginBottom: "auto",
-    color: "#7C6A46",
-    fontWeight: "600",
-  },
-  textInImageHead: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
-    fontSize: 18,
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  textInImageChild: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  title: {
-    color: "#8C7D5D",
-    fontSize: 20,
-    fontWeight: "600",
-    marginVertical: "5px",
-    marginLeft: "15px",
-  },
-  cardImage: {
-    height: "300px",
-    width: "140px",
-    objectFit: "contain",
-    borderRadius: 5,
-  },
-  textInCardContainer: {
-    position: "absolute",
-    top: 275,
-    left: 10,
-  },
-  textInCard: {
-    color: "#FFFFFF",
-  },
-  cardContainer: {
-    marginLeft: 20,
-  },
-});

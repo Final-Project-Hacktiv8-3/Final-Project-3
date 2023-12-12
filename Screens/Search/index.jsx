@@ -1,36 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StatusBar, View, ScrollView } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Searchbar, Text } from "react-native-paper";
-import { getHotelByLocation, getLocation } from "../../redux/hotel/hotelAction";
-import { useSearch } from "../../services/context";
+import {
+  FlatList,
+  StatusBar,
+  View,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
+import { useDispatch } from "react-redux";
+import { Searchbar, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { HotelCard } from "../../Components/organism/Card";
-import { Loading } from "../../Components/molecules/loading";
+import { getHotelByLocation, getLocation } from "redux/hotel/hotelAction";
+import { useSearch } from "services";
+import { HotelCard } from "Components";
 
 export const Search = ({ route }) => {
-  const locationTop = [
-    {
-      id: -2679652,
-      title: "Jakarta",
-      image: require("../../assets/jakarta.jpg"),
-    },
-    {
-      id: -2671578,
-      title: "Bandung",
-      image: require("../../assets/bandung.jpg"),
-    },
-    {
-      id: -2687472,
-      title: "Medan",
-      image: require("../../assets/medan.jpg"),
-    },
-    {
-      id: -2698521,
-      title: "Surabaya",
-      image: require("../../assets/surabaya.jpg"),
-    },
-  ];
   const dispatch = useDispatch();
   const { searching } = route.params || {};
   const { search, setSearch } = useSearch(searching || "");
@@ -54,14 +37,12 @@ export const Search = ({ route }) => {
 
       setEndReached(response.payload.result.length === 0);
 
-      // If offset is 0, set the new hotels, otherwise append to existing hotels
       setHotels((prevHotels) =>
         offset === 0
           ? response.payload.result
           : [...prevHotels, ...response.payload.result]
       );
 
-      // Clear the search value after handling the search
       setSearch("");
     } catch (error) {
       console.error("Error fetching hotels:", error);
@@ -71,14 +52,11 @@ export const Search = ({ route }) => {
   };
 
   const onChangeSearch = (query) => {
-    // Set nilai search setiap kali pengguna mengetik
     setSearch(query);
   };
 
   const onSubmitSearch = () => {
-    // Reset offset when a new search is initiated
     setOffset(0);
-    // Call the search function
     handlerGetHotel();
   };
 
@@ -90,19 +68,17 @@ export const Search = ({ route }) => {
   }, [searching]);
 
   return (
-    <View className="flex-1 max-h-screen bg-white ">
+    <SafeAreaView className="flex-1 py-3 bg-white ">
       <Searchbar
         className="bg-slate-200 w-[90%] self-center  mb-4"
         placeholder="Cari Kota"
-        // Set nilai Searchbar ke nilai search
         value={search}
         onChangeText={onChangeSearch}
-        onSubmitEditing={onSubmitSearch} // This function will be called on "Enter"
+        onSubmitEditing={onSubmitSearch}
       />
-
       <ScrollView>
         <View className="self-center   ">
-          {hotels.slice(0, 8).map((location) => (
+          {hotels.map((location) => (
             <HotelCard
               key={location.id}
               image={location.main_photo_url}
@@ -118,17 +94,7 @@ export const Search = ({ route }) => {
           </View>
         )}
       </ScrollView>
-      {/* {loading ? (
-        <Loading />
-      ) : (
-        hotels.slice(0, 3).map((hotel) => (
-          <Text key={hotel.id} className="text-slate-800">
-            {hotel.hotel_name}
-          </Text>
-        ))
-      )} */}
-
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 };
