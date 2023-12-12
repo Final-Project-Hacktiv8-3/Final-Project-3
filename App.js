@@ -73,7 +73,7 @@ function SearchStackScreen() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Homes"
+        name="Searchs"
         component={Search}
         options={{
           title: "Search",

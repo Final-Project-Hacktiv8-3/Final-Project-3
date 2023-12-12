@@ -14,10 +14,10 @@ import { Slider } from "Components";
 export const Home = () => {
   const navigation = useNavigation();
 
-  const onSubmitSearch = () => {
-    navigation.navigate("Search", { searching: search });
-  };
   const { search, setSearch } = useSearch();
+  const onSubmitSearch = () => {
+    navigation.navigate("Searchs", { searching: search });
+  };
   const locationTop = [
     {
       id: -2679652,
@@ -65,8 +65,8 @@ export const Home = () => {
   ];
   const onChangeSearch = (query) => setSearch(query);
   return (
-    <SafeAreaView className="flex-1 py-3  bg-white  ">
-      <View className={` h-screen  gap-y-3`}>
+    <SafeAreaView className="flex-1 py-3  bg-whiten">
+      <View className={` max-h-screen  gap-y-5`}>
         <Searchbar
           className="bg-slate-200   w-[90%] self-center  "
           placeholder="Cari Kota"
