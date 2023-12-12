@@ -11,28 +11,61 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import "react-native-gesture-handler";
-import { Account, DetailPlace, Favorites, Home, Login, Profile, Search } from "Screens";
+import {
+  Account,
+  DetailPlace,
+  Favorites,
+  Home,
+  Login,
+  Profile,
+  Search,
+} from "Screens";
 import { store } from "redux/store";
 import { SearchProvider } from "services";
 import { Room } from "Screens/Room";
 
 const Tab = createMaterialBottomTabNavigator();
-const ProfileStack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 
 function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Profiles"
         component={Profile}
+        options={{
+          title: "Profile",
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#7C6A46",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
         options={{
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Account" component={Account} />
-    </ProfileStack.Navigator>
+      <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{
+          title: "Edit Account",
+          headerStyle: {
+            backgroundColor: "#7C6A46",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -43,6 +76,13 @@ function FavoritesStackScreen() {
         name="Favorites"
         component={Favorites}
         options={{
+          title: "Favorites",
+          headerStyle: {
+            backgroundColor: "#7C6A46",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+          headerTintColor: "#fff",
           headerTitleAlign: "center",
         }}
       />
@@ -90,7 +130,6 @@ function SearchStackScreen() {
   );
 }
 
-
 function MyTabs() {
   const { isAuth } = useSelector((state) => state.auth);
   return (
@@ -102,8 +141,7 @@ function MyTabs() {
           borderTopColor: "#8C7D5D",
           borderTopWidth: 1,
         }}
-        activeColor="#8C7D5D"
-      >
+        activeColor="#8C7D5D">
         <Tab.Screen
           name="HomeTab"
           component={HomeStackScreen}
@@ -153,24 +191,21 @@ export default function App() {
   return (
     <Provider store={store}>
       <SearchProvider>
-      <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-        name="Home"
-        component={MyTabs}
-        options={{headerShown:false}}
-        />
-       
-        <Stack.Screen name="Details" component={DetailPlace}   />
-        <Stack.Screen
-        name="Room" 
-        component={Room}
-        options={{headerShown:false}}
-        
-        />
-       
-      
-      </Stack.Navigator>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={MyTabs}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen name="Details" component={DetailPlace} />
+            <Stack.Screen
+              name="Room"
+              component={Room}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
         </NavigationContainer>
       </SearchProvider>
     </Provider>
