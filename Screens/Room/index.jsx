@@ -3,15 +3,17 @@ import { StyleSheet } from "react-native";
 import { useEffect,useState } from "react";
 import { axiosInstance } from "../../services/axios";
 import { useRoute } from "@react-navigation/native";
-import Svg, { Path } from 'react-native-svg';
+import StarRating from "Components/molecules/Rating";
 
 const screenWidth = Dimensions.get('window').width;
 
 export const Room = ({navigation}) => {
     const route = useRoute();
-    const {hotel_id} = route.params;
+    const {hotel_id,star} = route.params;
     const [love, setLove] = useState(false);
-    console.log(hotel_id);
+    
+    
+    
 
     const [datas, setDatas] = useState([])
     const [photos, setPhotos] = useState()
@@ -37,13 +39,13 @@ export const Room = ({navigation}) => {
         fetchData();
       }, [])
 
-      let matchId= 0;
+      let matchId= {};
       {datas?.map(infoHotel => (
         matchId = infoHotel?.rooms[hotel_id + '01'] || infoHotel?.rooms[hotel_id + '02'] || infoHotel?.rooms[hotel_id + '03'] || infoHotel?.rooms[hotel_id + '04'] || infoHotel?.rooms[hotel_id + '05']
-        // console.log(infoHotel?.rooms)
-
           
-    ))}
+      ))}
+
+      console.log(matchId)
 
 
 
@@ -66,7 +68,50 @@ export const Room = ({navigation}) => {
       }
     };
 
+    
+
+    const renderFacility = (facilty) =>{
+      switch (facilty) {
+        case 'Accessibility':
+          return <TouchableOpacity style={styles.imageIconBg}> 
+
+            <Image source={require("../../assets/accessibility.png")} style={styles.imageIcon} />
+            <Text style={styles.textIcon}>Accessibility</Text>
+
+          </TouchableOpacity>
+          break;
+        case 'Bathroom':
+          return <TouchableOpacity style={styles.imageIconBg}> 
+
+          <Image source={require("../../assets/bath.png")} style={styles.imageIcon} />
+          <Text style={styles.textIcon}>Bathroom</Text>
+
+        </TouchableOpacity>
+          break;
+        case 'Media & Technology':
+          return <TouchableOpacity style={styles.imageIconBg}> 
+
+          <Image source={require("../../assets/television.png")} style={styles.imageIcon} />
+
+          <Text style={styles.textIcon}>Media & Technology</Text>
+        </TouchableOpacity>
+          break;
+        default:
+          return<TouchableOpacity style={styles.imageIconBg}> 
+
+          <Image source={require("../../assets/accessibility.png")} style={styles.imageIcon} />
+          <Text style={styles.textIcon}>{facilty}</Text>
+
+        </TouchableOpacity>
+      }
+      
+    }
+
    
+
+    const handleBooking = () => {
+      // handle buat bookings
+    }
 
 
   return (
@@ -76,7 +121,7 @@ export const Room = ({navigation}) => {
 
 
     <View> 
-        {/* <View style={styles.icon}>
+      <View style={styles.icon}>
         
 
         <TouchableOpacity style={styles.arrowRound} onPress={() => navigation.goBack()} >
@@ -85,7 +130,8 @@ export const Room = ({navigation}) => {
   
         {renderLoveIcon()}
   
-        </View> */}
+      </View>
+
        <FlatList
        data={matchId?.photos}
        renderItem={({item})=> (
@@ -98,18 +144,8 @@ export const Room = ({navigation}) => {
        horizontal
        />
 
-        <View style={styles.icon}>
-        
 
-        <TouchableOpacity style={styles.arrowRound} onPress={() => navigation.goBack()} >
-          <Image source={require("../../assets/left-arrow.png")} style={styles.arrow} />
-        </TouchableOpacity>
-  
-        {renderLoveIcon()}
-  
-        </View>
-        
-       
+
         <View>
 
         </View>
@@ -123,10 +159,18 @@ export const Room = ({navigation}) => {
                 ))
               ))}
                 
+
+
+              
+
             </View>
             <View style={styles.star}>
 
-              <Text>⭐⭐⭐⭐⭐</Text>
+            <StarRating rating={star}/>
+            </View>
+
+            <View style={styles.facilities}>
+            {matchId?.facilities?.slice(1,4)?.map(facilty => renderFacility(facilty.alt_facilitytype_name)  ) }
             </View>
 
         </View>
@@ -146,7 +190,7 @@ export const Room = ({navigation}) => {
             </View>
 
             <TouchableOpacity style={styles.button}>
-                <Text style={styles.textInButton}>Book Now</Text>
+                <Text style={styles.textInButton} onPress={handleBooking} >Book Now</Text>
             </TouchableOpacity>
 
      </View>
@@ -177,8 +221,9 @@ const styles = StyleSheet.create({
     
   },
   star:{
-    position:"absolute",
-    marginLeft:150
+    marginLeft:'auto',
+    marginTop:-40
+
   },
   imageDetail:{
       width:130,
@@ -191,6 +236,7 @@ const styles = StyleSheet.create({
   textInCardContainer:{
     position: 'absolute',
     top: 290,
+    width:'80%'
 
   },
   roomName:{
@@ -199,11 +245,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom:15,
     
+    
+  },
+  facilities:{
+    flex:1,
+    flexDirection: 'row',
   },
 
   roomInfo:{
     flex: 1, 
-    flexDirection: 'row',
+    flexDirection: 'column',
+    
     
   },
   roomDesc:{
@@ -231,8 +283,8 @@ const styles = StyleSheet.create({
   icon:{
     flex:1,
     flexDirection:"row",
-    position:"relative",
-    
+    position:"absolute",
+    zIndex:"10000",
     
   },
   arrow:{
@@ -256,8 +308,30 @@ const styles = StyleSheet.create({
     marginLeft:'auto',
     backgroundColor:'#FFFFFF',
     borderRadius:50,
-    // position: 'absolute',
+    marginLeft:315
+  },
+  imageIcon:{
+    height:40,
+    width:40,
+    marginLeft:'auto',
+    marginRight:'auto',
+    marginTop:'auto',
+    marginBottom:'auto',
+    backgroundColor:'#FFFFFF',
+    borderRadius:'50%',
+
+  },
+  imageIconBg:{
+    marginLeft:35,
+    marginTop:13
+  },
+
+  textIcon:{
+    color:'#FFFFFF',
+
   }
+
+
 
 
 })
