@@ -45,7 +45,7 @@ export const Room = ({navigation}) => {
           
       ))}
 
-      console.log(matchId)
+    
 
 
 
@@ -107,6 +107,8 @@ export const Room = ({navigation}) => {
       
     }
 
+    console.log(matchId)
+
    
 
     const handleBooking = () => {
@@ -118,7 +120,7 @@ export const Room = ({navigation}) => {
     <>
     <ScrollView>
       
-
+      
 
     <View> 
       <View style={styles.icon}>
@@ -144,11 +146,6 @@ export const Room = ({navigation}) => {
        horizontal
        />
 
-
-
-        <View>
-
-        </View>
         <View style={styles.textInCardContainer}>
 
             <View style={styles.roomInfo}>
@@ -179,14 +176,14 @@ export const Room = ({navigation}) => {
                 <Text style={styles.textDesc}>{matchId?.description}</Text>
                 
 
-            <FlatList
-              data={matchId?.photos}
-              renderItem={({item})=> (
-                <Image  source={{uri:item.url_original}} style={styles.imageDetail}/>
-              )}
-              keyExtractor={item => item.id}
-              horizontal
-            />
+                <FlatList
+                  data={matchId?.photos}
+                  renderItem={({item})=> (
+                    <Image  source={{uri:item.url_original}} style={styles.imageDetail}/>
+                  )}
+                  keyExtractor={item => item.id}
+                  horizontal
+                />
             </View>
 
             <TouchableOpacity style={styles.button}>
@@ -211,7 +208,7 @@ const styles = StyleSheet.create({
   },
   title:{
       fontSize:30,
-      fontWeight:600,
+      fontWeight:"600",
       color: "#353840",
       marginTop:50
   },
@@ -284,7 +281,7 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection:"row",
     position:"absolute",
-    zIndex:"10000",
+    zIndex:1,
     
   },
   arrow:{
@@ -302,7 +299,6 @@ const styles = StyleSheet.create({
     
     backgroundColor:'#FFFFFF',
     borderRadius:50,
-    // position: 'absolute',
   },
   loveRound:{
     marginLeft:'auto',
@@ -318,7 +314,7 @@ const styles = StyleSheet.create({
     marginTop:'auto',
     marginBottom:'auto',
     backgroundColor:'#FFFFFF',
-    borderRadius:'50%',
+    borderRadius:50,
 
   },
   imageIconBg:{
