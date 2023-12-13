@@ -161,7 +161,10 @@ export default function App() {
         options={{headerShown:false}}
         />
        
-        <Stack.Screen name="Details" component={DetailPlace}   />
+        <Stack.Screen 
+          name="Details" 
+          component={DetailPlace}
+        />
         <Stack.Screen
         name="Room" 
         component={Room}

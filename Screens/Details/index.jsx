@@ -45,16 +45,7 @@ export const DetailPlace = ({navigation}) => {
     fetchData();
   }, [])
 
-  const handleNavigate = (hotel_id,star) =>{
-    // console.log(hotel_id);
-    navigation.navigate('Room',{
-      hotel_id:hotel_id,
-      star:star,
-    })
-  }
-
-  console.log(datas)
-  
+ 
 
   return (
     <View>
@@ -63,7 +54,10 @@ export const DetailPlace = ({navigation}) => {
         data={datas}
         renderItem={({item})=>(
           
-      <TouchableOpacity style={styles.background} onPress={()=>handleNavigate(item.hotel_id,item.review_score)}  >
+      <TouchableOpacity style={styles.background} onPress={()=> navigation.navigate('Room',{
+        hotel_id:item.hotel_id,
+        star:item.review_score,
+      })}  >
         <View style={styles.flexCol} >
 
           <Image source={{uri:item.main_photo_url}} style={styles.image}/>
