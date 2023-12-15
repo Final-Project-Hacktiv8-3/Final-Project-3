@@ -85,7 +85,30 @@ export const Profile = ({ navigation }) => {
                   icon="account"
                   style={{ width: "100%" }}
                   iconColor="#7C6A46"
-                  size={45}
+                  size={40}
+                />
+              )}
+              right={(props) => <IconButton {...props} icon="chevron-right" />}
+              style={{
+                backgroundColor: "#F5F5F5",
+                borderRadius: 12,
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("History")}>
+            <Card.Title
+              title="Bookings"
+              titleVariant="headlineSmall"
+              titleStyle={{ fontWeight: "700", color: "#7C6A46" }}
+              subtitle="See your bookings history"
+              subtitleVariant="bodySmall"
+              left={(props) => (
+                <IconButton
+                  {...props}
+                  icon="history"
+                  style={{ width: "100%" }}
+                  iconColor="#7C6A46"
+                  size={40}
                 />
               )}
               right={(props) => <IconButton {...props} icon="chevron-right" />}
