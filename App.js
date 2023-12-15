@@ -24,6 +24,7 @@ import {
 import { store } from "redux/store";
 import { SearchProvider } from "services";
 import { Room } from "Screens/Room";
+import { History } from "Screens/Profile/History";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -49,7 +50,14 @@ function ProfileStackScreen() {
         name="Login"
         component={Login}
         options={{
-          headerShown: false,
+          title: "Login",
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#7C6A46",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
         }}
       />
       <Stack.Screen
@@ -57,6 +65,20 @@ function ProfileStackScreen() {
         component={Account}
         options={{
           title: "Edit Account",
+          headerStyle: {
+            backgroundColor: "#7C6A46",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
+        name="History"
+        component={History}
+        options={{
+          title: "Booking History",
           headerStyle: {
             backgroundColor: "#7C6A46",
             borderBottomLeftRadius: 20,
@@ -136,10 +158,9 @@ function MyTabs() {
           borderTopColor: "#8C7D5D",
           borderTopWidth: 1,
         }}
-        activeColor="#8C7D5D"
-      >
+        activeColor="#8C7D5D">
         <Tab.Screen
-          name="Homess"
+          name="Home"
           component={HomeStackScreen}
           options={({ route, navigation }) => ({
             tabBarLabel: navigation.getState().index === 0 ? route.name : null,
@@ -159,6 +180,7 @@ function MyTabs() {
             ),
           })}
         />
+
         <Tab.Screen
           name="Profile"
           component={ProfileStackScreen}
@@ -181,7 +203,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name="Home"
+              name="HomeScreen"
               component={MyTabs}
               options={{ headerShown: false }}
             />
@@ -205,10 +227,19 @@ export default function App() {
               component={Room}
               options={{ headerShown: false }}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="Checkout"
               component={Checkout}
-              // options={{ headerShown: false }}
+              options={{
+                title: "Checkout",
+                headerStyle: {
+                  backgroundColor: "#7C6A46",
+                  borderBottomLeftRadius: 20,
+                  borderBottomRightRadius: 20,
+                },
+                headerTintColor: "#fff",
+                headerTitleAlign: "center",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>

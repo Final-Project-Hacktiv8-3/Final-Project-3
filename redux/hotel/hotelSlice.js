@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: null,
   location: null,
+  history: [],
 };
 
 const hotelSlice = createSlice({
@@ -26,6 +27,15 @@ const hotelSlice = createSlice({
       } else {
         state.favorites.push(action.payload);
       }
+    },
+    addHistory: (state, action) => {
+      const { price, image, title, rating } = action.payload;
+      state.history.push({
+        price,
+        image,
+        title,
+        rating,
+      });
     },
   },
 
@@ -56,5 +66,5 @@ const hotelSlice = createSlice({
   },
 });
 
-export const { addToFavorites } = hotelSlice.actions;
+export const { addToFavorites, addHistory } = hotelSlice.actions;
 export default hotelSlice.reducer;

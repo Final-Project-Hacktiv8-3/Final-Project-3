@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux'
 import { Text, TextInput, View,StyleSheet } from 'react-native'
 import { formattedPrice } from 'utils'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { addHistory } from 'redux/history/history'
+// import { addHistory } from 'redux/history/history'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { addHistory } from 'redux/hotel/hotelSlice'
 
 export const Checkout = ({navigation}) => {
     const route = useRoute();
