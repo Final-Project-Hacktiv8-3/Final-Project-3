@@ -30,6 +30,9 @@ export const Room = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [datas, setDatas] = useState([]);
   const [photos, setPhotos] = useState();
+
+  const { isAuth } = useSelector((state) => state.auth);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -162,12 +165,17 @@ export const Room = ({ navigation }) => {
     );
   };
   const handleBooking = () => {
-    navigation.navigate('Checkout',{
-      image: image,
-      title: hotel_name,
-      prices:price,
-      rating: star,
-    });
+    if (isAuth) {
+      navigation.navigate("Checkout", {
+        image: image,
+        title: hotel_name,
+        prices: price,
+        rating: star,
+      });
+    } else {
+      alert("You must login first");
+      navigation.navigate("Login");
+    }
   };
 
   return (
@@ -200,15 +208,13 @@ export const Room = ({ navigation }) => {
               <TouchableOpacity
                 // style={styles.arrowRound}
                 className="p-2 bg-white rounded-full"
-                onPress={() => navigation.goBack()}
-              >
+                onPress={() => navigation.goBack()}>
                 <AntDesign name="arrowleft" size={24} color="black" />
               </TouchableOpacity>
 
               <Pressable
                 className="p-3 bg-white rounded-full"
-                onPress={handleFavorite}
-              >
+                onPress={handleFavorite}>
                 {isFavorited(hotel_name) ? (
                   <AntDesign name="heart" size={18} color="red" />
                 ) : (
@@ -254,10 +260,8 @@ export const Room = ({ navigation }) => {
               />
             </View>
 
-            <TouchableOpacity style={styles.button}  onPress={handleBooking}>
-              <Text style={styles.textInButton}>
-                Book Now
-              </Text>
+            <TouchableOpacity style={styles.button} onPress={handleBooking}>
+              <Text style={styles.textInButton}>Book Now</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
