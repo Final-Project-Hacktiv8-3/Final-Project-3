@@ -19,6 +19,7 @@ import {
   Login,
   Profile,
   Search,
+  Checkout,
 } from "Screens";
 import { store } from "redux/store";
 import { SearchProvider } from "services";
@@ -203,6 +204,11 @@ export default function App() {
               name="Room"
               component={Room}
               options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="Checkout"
+              component={Checkout}
+              // options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>

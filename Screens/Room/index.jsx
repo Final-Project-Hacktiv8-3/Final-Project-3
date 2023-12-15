@@ -59,7 +59,7 @@ export const Room = ({ navigation }) => {
   }, []);
 
   let matchId = {};
-  datas.some((infoHotel) => {
+  datas?.some((infoHotel) => {
     matchId =
       infoHotel?.rooms[hotel_id + "01"] ||
       infoHotel?.rooms[hotel_id + "02"] ||
@@ -162,7 +162,12 @@ export const Room = ({ navigation }) => {
     );
   };
   const handleBooking = () => {
-    // handle buat bookings
+    navigation.navigate('Checkout',{
+      image: image,
+      title: hotel_name,
+      prices:price,
+      rating: star,
+    });
   };
 
   return (
@@ -249,8 +254,8 @@ export const Room = ({ navigation }) => {
               />
             </View>
 
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.textInButton} onPress={handleBooking}>
+            <TouchableOpacity style={styles.button}  onPress={handleBooking}>
+              <Text style={styles.textInButton}>
                 Book Now
               </Text>
             </TouchableOpacity>
