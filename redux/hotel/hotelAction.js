@@ -15,7 +15,7 @@ export const getLocation = createAsyncThunk(
       const destination = response.data.filter((item) => {
         return item.cc1 === "id";
       });
-      console.log(destination);
+      // console.log(destination);
 
       return destination;
     } catch (error) {
