@@ -10,7 +10,7 @@ const historySlice = createSlice({
   reducers: {
     addHistory: (state, action) => {
         const { price,image,title,rating } = action.payload;
-        state.listHistory.push(action.payload);
+        state.listHistory.push({price:price,image:image,title:title,rating:rating});
     }
   },
 });

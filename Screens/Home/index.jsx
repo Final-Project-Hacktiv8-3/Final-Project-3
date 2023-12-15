@@ -10,12 +10,16 @@ import {
 import { Searchbar } from "react-native-paper";
 import { useSearch } from "services";
 import { Slider } from "Components";
+import { useSelector } from "react-redux";
 
 export const Home = ({ navigation }) => {
   const { search, setSearch } = useSearch();
   const onSubmitSearch = () => {
     navigation.navigate("Searchs", { searching: search });
   };
+  
+
+  // console.log(price);
   const locationTop = [
     {
       id: -2679652,
