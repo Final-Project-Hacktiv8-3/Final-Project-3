@@ -13,7 +13,16 @@ import { formattedPrice } from "../../../utils/Currency";
 import StarRating from "../../molecules/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavorites } from "../../../redux/hotel/hotelSlice";
-export const HotelCard = ({ image, title, price, rating }) => {
+export const HotelCard = ({
+  image,
+  title,
+  price,
+  rating,
+  address,
+  hotel_id,
+  star,
+  hotel_name,
+}) => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
@@ -26,15 +35,28 @@ export const HotelCard = ({ image, title, price, rating }) => {
   const handleFavorite = () => {
     dispatch(addToFavorites({ image, title, price, rating }));
   };
-
+  const handleNavigate = (hotel_id, star, hotel_name, price, image) => {
+    // console.log(hotel_id);
+    navigation.navigate("Room", {
+      hotel_id: hotel_id,
+      star: star,
+      hotel_name: hotel_name,
+      price: price,
+      image: image,
+    });
+  };
   return (
     <View className="p-3">
-      <View className="relative w-[420px] h-[250px] ">
+      <Pressable
+        className="relative w-[420px] h-[250px] "
+        onPress={() => handleNavigate(hotel_id, star, hotel_name, price, image)}
+      >
         <Image src={image} className="w-full h-full rounded-md" />
         <View className=" p-2 rounded-full absolute self-end">
           <Pressable
             className="p-2 bg-white rounded-full"
-            onPress={handleFavorite}>
+            onPress={handleFavorite}
+          >
             {isFavorited(title) ? (
               <AntDesign name="heart" size={18} color="red" />
             ) : (
@@ -42,18 +64,21 @@ export const HotelCard = ({ image, title, price, rating }) => {
             )}
           </Pressable>
         </View>
-        <View className="bg-semi-transparent  absolute bottom-0 left-0 w-full p-3 rounded-b-md h-[95px] justify-between flex ">
+        <View className="bg-semi-transparent  absolute bottom-0 left-0 w-full p-4 rounded-b-md h-[120px] justify-between flex ">
           <View className="flex flex-row justify-between">
-            <Text className=" text-slate-50 text-lg">{title}</Text>
-            {/* <Text className=" text-slate-50">{title}</Text> */}
+            <Text className=" text-slate-50 text-lg" numberOfLines={1}>
+              {title}
+            </Text>
           </View>
+          <Text className=" text-slate-50 text-lg w-[90%]" numberOfLines={1}>
+            {address}
+          </Text>
           <View className="flex flex-row justify-between">
             <Text className=" text-slate-50">Rp. {formattedPrice(price)}</Text>
-            {/* <Text className=" text-slate-50">{title}</Text> */}
             <StarRating rating={rating} />
           </View>
         </View>
-      </View>
+      </Pressable>
     </View>
   );
 };

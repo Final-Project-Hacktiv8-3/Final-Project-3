@@ -106,17 +106,11 @@ function HomeStackScreen() {
           headerTitleAlign: "center",
         }}
       />
-    </Stack.Navigator>
-  );
-}
-function SearchStackScreen() {
-  return (
-    <Stack.Navigator>
       <Stack.Screen
         name="Searchs"
         component={Search}
-        options={{
-          title: "Search",
+        options={({ route }) => ({
+          title: `Hotel di ${route.params.searching}`,
           headerStyle: {
             backgroundColor: "#7C6A46",
             borderBottomLeftRadius: 20,
@@ -124,7 +118,7 @@ function SearchStackScreen() {
           },
           headerTintColor: "#fff",
           headerTitleAlign: "center",
-        }}
+        })}
       />
     </Stack.Navigator>
   );
@@ -141,9 +135,10 @@ function MyTabs() {
           borderTopColor: "#8C7D5D",
           borderTopWidth: 1,
         }}
-        activeColor="#8C7D5D">
+        activeColor="#8C7D5D"
+      >
         <Tab.Screen
-          name="HomeTab"
+          name="Homess"
           component={HomeStackScreen}
           options={({ route, navigation }) => ({
             tabBarLabel: navigation.getState().index === 0 ? route.name : null,
@@ -152,21 +147,12 @@ function MyTabs() {
             ),
           })}
         />
+
         <Tab.Screen
-          name="Search"
-          component={SearchStackScreen}
-          options={({ route, navigation }) => ({
-            tabBarLabel: navigation.getState().index === 1 ? route.name : null,
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="search" color={color} size={26} />
-            ),
-          })}
-        />
-        <Tab.Screen
-          name="Favorites"
+          name="Favorite"
           component={FavoritesStackScreen}
           options={({ route, navigation }) => ({
-            tabBarLabel: navigation.getState().index === 2 ? route.name : null,
+            tabBarLabel: navigation.getState().index === 1 ? route.name : null,
             tabBarIcon: ({ color }) => (
               <Ionicons name="heart" color={color} size={26} />
             ),
@@ -176,7 +162,7 @@ function MyTabs() {
           name="Profile"
           component={ProfileStackScreen}
           options={({ route, navigation }) => ({
-            tabBarLabel: navigation.getState().index === 3 ? route.name : null,
+            tabBarLabel: navigation.getState().index === 2 ? route.name : null,
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="account" color={color} size={26} />
             ),
@@ -199,7 +185,20 @@ export default function App() {
               options={{ headerShown: false }}
             />
 
-            <Stack.Screen name="Details" component={DetailPlace} />
+            <Stack.Screen
+              name="Details"
+              component={DetailPlace}
+              options={({ route }) => ({
+                title: `Hotel di ${route.params.title}`,
+                headerStyle: {
+                  backgroundColor: "#7C6A46",
+                  borderBottomLeftRadius: 20,
+                  borderBottomRightRadius: 20,
+                },
+                headerTintColor: "#fff",
+                headerTitleAlign: "center",
+              })}
+            />
             <Stack.Screen
               name="Room"
               component={Room}

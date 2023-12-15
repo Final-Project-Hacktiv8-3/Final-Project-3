@@ -31,7 +31,10 @@ export const Slider = ({ list }) => {
         <TouchableOpacity
           className="mr-2"
           onPress={() =>
-            navigation.navigate("Details", { kotaId: item.id })
+            navigation.navigate("Details", {
+              kotaId: item.id,
+              title: item.title,
+            })
           }
         >
           <View className="p-3">

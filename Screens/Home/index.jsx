@@ -65,8 +65,6 @@ export const Home = ({ navigation }) => {
   return (
     <SafeAreaView className="flex-1 py-3  bg-whiten">
       <ScrollView>
-
-
         <View className={` max-h-screen  gap-y-5`}>
           <Searchbar
             className="bg-slate-200   w-[90%] self-center  "
@@ -99,18 +97,17 @@ export const Home = ({ navigation }) => {
             >
               TOP DESTINATIONS
             </Text>
-            <Slider list={locationPop} navigation={navigation} />
+            <Slider list={locationPop} />
           </View>
           <View>
             <Text className="px-3 text-lg  font-semibold text-primary ">
               POPULAR DESTINATIONS
             </Text>
-            <Slider list={locationTop} navigation={navigation} />
+            <Slider list={locationTop} />
           </View>
         </View>
         <StatusBar style="auto" backgroundColor={"#7C6A46"} />
       </ScrollView>
-    
     </SafeAreaView>
   );
 };

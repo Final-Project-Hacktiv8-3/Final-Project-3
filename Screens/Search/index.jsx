@@ -7,7 +7,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { Searchbar, Text } from "react-native-paper";
+import { ActivityIndicator, Searchbar, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { getHotelByLocation, getLocation } from "redux/hotel/hotelAction";
 import { useSearch } from "services";
@@ -43,7 +43,7 @@ export const Search = ({ route }) => {
           : [...prevHotels, ...response.payload.result]
       );
 
-      setSearch("");
+      // setSearch("");
     } catch (error) {
       console.error("Error fetching hotels:", error);
     } finally {
@@ -55,8 +55,7 @@ export const Search = ({ route }) => {
   };
 
   const onSubmitSearch = () => {
-    setOffset(0);
-    handlerGetHotel();
+    navigation.navigate("Searchs", { searching: search });
   };
 
   useEffect(() => {
@@ -65,7 +64,7 @@ export const Search = ({ route }) => {
       setSearch(searching);
     }
   }, [searching]);
-  console.log(searching);
+
   return (
     <SafeAreaView className="flex-1 py-3 bg-white ">
       <Searchbar
@@ -75,29 +74,35 @@ export const Search = ({ route }) => {
         onChangeText={onChangeSearch}
         onSubmitEditing={onSubmitSearch}
       />
-      {loading && (
-        <View className="self-center">
-          <Loading />
+      {loading ? (
+        <View className="flex-1 justify-center items-center">
+          <ActivityIndicator
+            animating={true}
+            size={"large"}
+            color={"#7C6A46"}
+          />
         </View>
-      )}
-      <ScrollView>
-        <View className="self-center   ">
-          {hotels.map((location) => (
-            <HotelCard
-              key={location.id}
-              image={location.main_photo_url}
-              title={location.hotel_name}
-              price={location.price_breakdown.all_inclusive_price}
-              rating={location.review_score}
-            />
-          ))}
-        </View>
-        {endReached && (
-          <View className="self-center">
-            <Text>Tidak ada hotel lagi </Text>
+      ) : (
+        <ScrollView>
+          <View className="self-center   ">
+            {hotels.map((location) => (
+              <HotelCard
+                key={location.id}
+                image={location.main_photo_url}
+                title={location.hotel_name}
+                price={location.price_breakdown.all_inclusive_price}
+                rating={location.review_score}
+                address={location.address}
+              />
+            ))}
           </View>
-        )}
-      </ScrollView>
+          {endReached && (
+            <View className="self-center">
+              <Text>Tidak ada hotel lagi </Text>
+            </View>
+          )}
+        </ScrollView>
+      )}
       <StatusBar style="auto" />
     </SafeAreaView>
   );
