@@ -29,9 +29,10 @@ const hotelSlice = createSlice({
       }
     },
     addHistory: (state, action) => {
-      const { price, image, title, rating } = action.payload;
+      const { price, image, title, rating, hotel_id } = action.payload;
       state.history.push({
         price,
+        hotel_id,
         image,
         title,
         rating,

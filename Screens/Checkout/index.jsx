@@ -10,7 +10,7 @@ import { addHistory } from "redux/hotel/hotelSlice";
 export const Checkout = ({ navigation }) => {
   const { isAuth } = useSelector((state) => state.auth);
   const route = useRoute();
-  const { prices, image, title, rating } = route.params;
+  const { prices, image, title, rating, hotel_id } = route.params;
   const dispatch = useDispatch();
 
   const { fullName, email } = useSelector((state) => state.auth);
@@ -20,6 +20,7 @@ export const Checkout = ({ navigation }) => {
       dispatch(
         addHistory({
           image: image,
+          hotel_id: hotel_id,
           title: title,
           price: prices,
           rating: rating,
@@ -69,6 +70,8 @@ export const Checkout = ({ navigation }) => {
 const styles = StyleSheet.create({
   input: {
     height: 40,
+
+    width: 350,
     margin: 12,
     padding: 10,
     backgroundColor: "#FFFFFF",
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
   priceSect: {
     backgroundColor: "#FFFFFF",
     width: 350,
-    height: 100,
+    height: 120,
     margin: 12,
     borderRadius: 10,
   },

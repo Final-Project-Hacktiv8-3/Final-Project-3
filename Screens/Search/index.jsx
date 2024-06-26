@@ -89,6 +89,7 @@ export const Search = ({ route }) => {
               <HotelCard
                 key={location.id}
                 image={location.main_photo_url}
+                hotel_id={location.hotel_id}
                 title={location.hotel_name}
                 price={location.price_breakdown.all_inclusive_price}
                 rating={location.review_score}

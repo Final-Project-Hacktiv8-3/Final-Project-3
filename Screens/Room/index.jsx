@@ -24,7 +24,7 @@ const screenWidth = Dimensions.get("window").width;
 
 export const Room = ({ navigation }) => {
   const route = useRoute();
-  const { hotel_id, star, hotel_name, price, image } = route.params;
+  const { hotel_id, star, hotel_name, price, image, title } = route.params;
   // console.log(hotel_id, star, hotel_name, price, image);
   const [love, setLove] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ export const Room = ({ navigation }) => {
   const [photos, setPhotos] = useState();
 
   const { isAuth } = useSelector((state) => state.auth);
-
+  // console.log(hotel_id);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,8 +49,6 @@ export const Room = ({ navigation }) => {
         // Assuming response.data is an array, update the state
         if (Array.isArray(response?.data)) {
           setDatas(response.data);
-        } else {
-          console.error("Data is not an array:", response?.data);
         }
         setLoading(false);
       } catch (error) {
@@ -158,6 +156,7 @@ export const Room = ({ navigation }) => {
     dispatch(
       addToFavorites({
         image: image,
+        hotel_id: hotel_id,
         title: hotel_name,
         price: price,
         rating: star,
@@ -168,13 +167,14 @@ export const Room = ({ navigation }) => {
     if (isAuth) {
       navigation.navigate("Checkout", {
         image: image,
-        title: hotel_name,
+        hotel_id: hotel_id,
+        title: title,
         prices: price,
         rating: star,
       });
     } else {
       alert("You must login first");
-      navigation.navigate("Login");
+      navigation.navigate("Profile");
     }
   };
 
@@ -208,13 +208,15 @@ export const Room = ({ navigation }) => {
               <TouchableOpacity
                 // style={styles.arrowRound}
                 className="p-2 bg-white rounded-full"
-                onPress={() => navigation.goBack()}>
+                onPress={() => navigation.goBack()}
+              >
                 <AntDesign name="arrowleft" size={24} color="black" />
               </TouchableOpacity>
 
               <Pressable
                 className="p-3 bg-white rounded-full"
-                onPress={handleFavorite}>
+                onPress={handleFavorite}
+              >
                 {isFavorited(hotel_name) ? (
                   <AntDesign name="heart" size={18} color="red" />
                 ) : (
@@ -226,7 +228,7 @@ export const Room = ({ navigation }) => {
               <View className="flex flex-row justify-between">
                 <View>
                   <Text className="text-xl text-white font-bold">
-                    {hotel_name}
+                    {title ? title : "No Title"}
                   </Text>
                 </View>
                 <View>

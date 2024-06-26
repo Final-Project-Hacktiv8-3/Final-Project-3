@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export const History = ({ navigation }) => {
   const history = useSelector((state) => state.hotel.history);
-
+  console.log(history);
   return (
     <SafeAreaView className="flex-1 justify-center items-center">
       {history.length === 0 ? (
@@ -16,7 +16,8 @@ export const History = ({ navigation }) => {
           <Button
             mode="contained"
             buttonColor="#7C6A46"
-            onPress={() => navigation.navigate("Home")}>
+            onPress={() => navigation.navigate("Home")}
+          >
             Explore Now
           </Button>
         </View>
@@ -25,6 +26,7 @@ export const History = ({ navigation }) => {
           {history.map((item, idx) => (
             <HotelCard
               key={idx}
+              hotel_id={item.hotel_id}
               image={item.image}
               title={item.title}
               price={item.price}

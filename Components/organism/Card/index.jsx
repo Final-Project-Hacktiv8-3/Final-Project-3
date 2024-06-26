@@ -33,14 +33,17 @@ export const HotelCard = ({
   };
 
   const handleFavorite = () => {
-    dispatch(addToFavorites({ image, title, price, rating }));
+    dispatch(
+      addToFavorites({ image, title, price, rating, address, hotel_id })
+    );
   };
-  const handleNavigate = (hotel_id, star, hotel_name, price, image) => {
+  const handleNavigate = (hotel_id, star, hotel_name, price, image, title) => {
     // console.log(hotel_id);
     navigation.navigate("Room", {
       hotel_id: hotel_id,
       star: star,
       hotel_name: hotel_name,
+      title: title,
       price: price,
       image: image,
     });
@@ -49,7 +52,9 @@ export const HotelCard = ({
     <View className="p-3">
       <Pressable
         className="relative w-[420px] h-[250px] "
-        onPress={() => handleNavigate(hotel_id, star, hotel_name, price, image)}
+        onPress={() =>
+          handleNavigate(hotel_id, star, hotel_name, price, image, title)
+        }
       >
         <Image src={image} className="w-full h-full rounded-md" />
         <View className=" p-2 rounded-full absolute self-end">

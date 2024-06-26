@@ -16,7 +16,8 @@ export const Favorites = () => {
           <Button
             mode="contained"
             buttonColor="#7C6A46"
-            onPress={() => navigation.navigate("Home")}>
+            onPress={() => navigation.navigate("Home")}
+          >
             Explore Now
           </Button>
         </View>
@@ -25,6 +26,7 @@ export const Favorites = () => {
           {favorites.map((item, idx) => (
             <HotelCard
               key={idx}
+              hotel_id={item.hotel_id}
               image={item.image}
               title={item.title}
               price={item.price}
